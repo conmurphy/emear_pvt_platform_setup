@@ -35,7 +35,7 @@ resource "tfe_workspace" "tfe_workspace" {
   terraform_version = var.tfe_workspace_terraform_version
 
   vcs_repo {
-    identifier = github_repository.github_repository.full_name
+    identifier = github_repository.github_repository[each.key].full_name
     oauth_token_id = var.oauth_token_id
   }
   depends_on = [github_repository.github_repository]
