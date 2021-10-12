@@ -58,7 +58,7 @@ resource "tfe_variable" "tfe_variable" {
   key          = each.key
   value        = var.kubernetes_host
   category     = "terraform"
-  workspace_id = tfe_workspace.tfe_workspace.id
+  workspace_id = tfe_workspace.tfe_workspace[each.key].id
 }
 
 data "kubernetes_secret" "kubernetes_secret" {
@@ -74,7 +74,7 @@ resource "tfe_variable" "tfe_sensitive_variable" {
   key          = each.key
   value        = base64dcode(kubernetes_secret.kubernetes_secret[each.key].data)
   category     = "terraform"
-  workspace_id = tfe_workspace.tfe_workspace.id
+  workspace_id = tfe_workspace.tfe_workspace[each.key].id
   #sensitive = true
 }
 
