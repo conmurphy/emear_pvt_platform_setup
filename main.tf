@@ -70,7 +70,7 @@ variable "applications" {
 #   sensitive = true
 # }
 
-/*
+
 resource "kubernetes_service_account" "kubernetes_service_account" {
   for_each =  toset(var.applications)
 
@@ -135,4 +135,3 @@ resource "kubernetes_role_binding" "role_binding" {
   }
    depends_on = [kubernetes_role.kubernetes_role]
 }
-*/
