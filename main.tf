@@ -27,6 +27,7 @@ data "tfe_agent_pool" "agent_pool" {
 # Create a workspace in Terraform cloud with the same name as the application
 # This will connect to IKS and deploy the helm chart containing the container image/application code
 resource "tfe_workspace" "tfe_workspace" {
+  for_each =  toset(var.applications)
   name           = each.key
   organization   = var.tfe_organization_name
   execution_mode = "agent"
