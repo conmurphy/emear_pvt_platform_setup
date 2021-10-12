@@ -1,5 +1,7 @@
 variable "applications" {
   type = list(string)
+  default = ["healthcare-test"]
+
 }
 
 resource "github_repository" "github_repository" {
