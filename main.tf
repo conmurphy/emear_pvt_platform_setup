@@ -70,7 +70,7 @@ variable "applications" {
 #   sensitive = true
 # }
 
-/*
+
 resource "kubernetes_service_account" "kubernetes_service_account" {
   for_each =  toset(var.applications)
 
@@ -134,4 +134,3 @@ resource "kubernetes_role_binding" "role_binding" {
     api_group = "rbac.authorization.k8s.io"
   }
 }
-*/
