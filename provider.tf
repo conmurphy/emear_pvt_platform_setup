@@ -21,4 +21,6 @@ provider "github" {
   // export GITHUB_TOKEN=<insert your token>
   
   //https://github.com/integrations/terraform-provider-github/issues/830
+
+  token = var.github_token
 }
