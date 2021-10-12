@@ -70,7 +70,7 @@ variable "applications" {
 #   sensitive = true
 # }
 
-
+/*
 resource "kubernetes_service_account" "kubernetes_service_account" {
   for_each =  toset(var.applications)
 
@@ -99,7 +99,7 @@ resource "kubernetes_namespace" "kubernetes_namespace" {
   }
 }
 
-resource "kubernetes_role" "role" {
+resource "kubernetes_role" "kubernetes_role" {
   for_each =  toset(var.applications)
 
   metadata {
@@ -133,4 +133,6 @@ resource "kubernetes_role_binding" "role_binding" {
     namespace = each.key
     api_group = "rbac.authorization.k8s.io"
   }
+   depends_on = [kubernetes_role.kubernetes_role]
 }
+*/
