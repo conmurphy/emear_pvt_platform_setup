@@ -77,7 +77,7 @@ resource "kubernetes_service_account" "kubernetes_service_account" {
     name = each.key
   }
   secret {
-    name = "${kubernetes_secret.kubernetes_secret.metadata.0.name}"
+    name = "${kubernetes_secret.kubernetes_secret.metadata[each.key].0.name}"
     namespace = each.key
   }
 }
