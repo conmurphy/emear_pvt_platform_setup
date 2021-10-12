@@ -70,6 +70,7 @@ variable "applications" {
 #   sensitive = true
 # }
 
+/*
 resource "kubernetes_service_account" "kubernetes_service_account" {
   for_each =  toset(var.applications)
 
@@ -108,7 +109,7 @@ resource "kubernetes_role" "role" {
 
   rule {
     api_groups     = ["*"]
-    resources      = ["namespaces","pods","pods/*","pods/exec","pods/logs","pods/log","persistentvolumes","persistentvolumeclaims","configmaps","secrets","replicasets","deployments","deployments/scale","daemonsets","statefulsets","jobs","cronjobs", "services", "replicationcontrollers", "horizontalpodautoscalers","ingresses"]
+    resources      = ["namespaces","pods","persistentvolumes","persistentvolumeclaims","configmaps","secrets","replicasets","deployments","daemonsets","statefulsets", "services", "ingresses"]
     verbs          = ["get","list","watch","create","update","patch","delete"]
   }
   
@@ -133,3 +134,4 @@ resource "kubernetes_role_binding" "role_binding" {
     api_group = "rbac.authorization.k8s.io"
   }
 }
+*/
