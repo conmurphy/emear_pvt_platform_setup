@@ -40,7 +40,7 @@ resource "tfe_workspace" "tfe_workspace" {
   #   identifier = github_repository.github_repository[each.key].full_name
   #   oauth_token_id = var.oauth_token_id
   # }
-  depends_on = [github_repository.github_repository]
+  # depends_on = [github_repository.github_repository]
 }
 
 variable "tfe_variables" {
