@@ -131,7 +131,7 @@ resource "kubernetes_role_binding" "role_binding" {
     kind      = "ServiceAccount"
     name      = each.key
     namespace = each.key
-    api_group = "rbac.authorization.k8s.io"
+    api_group = ""
   }
    depends_on = [kubernetes_role.kubernetes_role]
 }
