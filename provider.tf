@@ -8,6 +8,10 @@ terraform {
       source = "integrations/github"
       version = "4.12.2"
     }
+     kubernetes = {
+      source = "hashicorp/kubernetes"
+      version = "2.5.0"
+    }
   }
 }
 
