@@ -18,10 +18,10 @@ variable "applications" {
 #   }
 # }
 
-# data "tfe_agent_pool" "agent_pool" {
-#   name          = var.tfe_agent_pool_name
-#   organization  = var.tfe_organization_name
-# }
+data "tfe_agent_pool" "agent_pool" {
+  name          = var.tfe_agent_pool_name
+  organization  = var.tfe_organization_name
+}
 
 
 # Create a workspace in Terraform cloud with the same name as the application
@@ -75,7 +75,7 @@ resource "tfe_variable" "tfe_sensitive_variable" {
   value        = base64dcode(kubernetes_secret.kubernetes_secret[each.key].data)
   category     = "terraform"
   workspace_id = tfe_workspace.tfe_workspace.id
-  sensitive = true
+  #sensitive = true
 }
 
 
