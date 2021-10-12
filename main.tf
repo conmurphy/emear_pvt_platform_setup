@@ -24,51 +24,59 @@ variable "applications" {
 # }
 
 
-# # Create a workspace in Terraform cloud with the same name as the application
-# # This will connect to IKS and deploy the helm chart containing the container image/application code
-# resource "tfe_workspace" "tfe_workspace" {
-#   for_each =  toset(var.applications)
-#   name           = each.key
-#   organization   = var.tfe_organization_name
-#   execution_mode = "agent"
-#   agent_pool_id = data.tfe_agent_pool.agent_pool.id
-#   auto_apply = local.tfe_workspace_auto_approve
-#   terraform_version = local.tfe_workspace_terraform_version
-#   structured_run_output_enabled = local.structured_run_output_enabled
+# Create a workspace in Terraform cloud with the same name as the application
+# This will connect to IKS and deploy the helm chart containing the container image/application code
+resource "tfe_workspace" "tfe_workspace" {
+  for_each =  toset(var.applications)
+  name           = each.key
+  organization   = var.tfe_organization_name
+  execution_mode = "agent"
+  agent_pool_id = data.tfe_agent_pool.agent_pool.id
+  auto_apply = local.tfe_workspace_auto_approve
+  terraform_version = local.tfe_workspace_terraform_version
+  structured_run_output_enabled = local.structured_run_output_enabled
 
-#   # vcs_repo {
-#   #   identifier = github_repository.github_repository[each.key].full_name
-#   #   oauth_token_id = var.oauth_token_id
-#   # }
-#   depends_on = [github_repository.github_repository]
-# }
+  # vcs_repo {
+  #   identifier = github_repository.github_repository[each.key].full_name
+  #   oauth_token_id = var.oauth_token_id
+  # }
+  depends_on = [github_repository.github_repository]
+}
 
-# variable "tfe_variables" {
-#   type = list(string)
-#   default = ["apic_username", "apic_url","tenant_name", "vrf_name", "application_profile_name"]
-# }
+variable "tfe_variables" {
+  type = list(string)
+  default = ["kubernetes_host"]
+}
 
-# variable "tfe_sensitive_variables" {
-#   type = list(string)
-#   default = ["apic_password"]
-# }
+variable "tfe_sensitive_variables" {
+  type = list(string)
+  default = ["kubernetes_token"]
+}
 
-# resource "tfe_variable" "tfe_variable" {
-#   for_each = toset(var.tfe_variables)
-#   key          = each.key
-#   value        = each.key
-#   category     = "terraform"
-#   workspace_id = tfe_workspace.tfe_workspace.id
-# }
+resource "tfe_variable" "tfe_variable" {
+  for_each = toset(var.tfe_variables)
+  key          = each.key
+  value        = var.kubernetes_host
+  category     = "terraform"
+  workspace_id = tfe_workspace.tfe_workspace.id
+}
 
-# resource "tfe_variable" "tfe_sensitive_variable" {
-#   for_each = toset(var.tfe_sensitive_variables)
-#   key          = each.key
-#   value        = each.key
-#   category     = "terraform"
-#   workspace_id = tfe_workspace.tfe_workspace.id
-#   sensitive = true
-# }
+data "kubernetes_secret" "kubernetes_secret" {
+  for_each = toset(var.tfe_sensitive_variables)
+  metadata {
+    name = each.key
+    namespace = each.key
+  }
+}
+
+resource "tfe_variable" "tfe_sensitive_variable" {
+  for_each = toset(var.tfe_sensitive_variables)
+  key          = each.key
+  value        = base64dcode(kubernetes_secret.kubernetes_secret[each.key].data)
+  category     = "terraform"
+  workspace_id = tfe_workspace.tfe_workspace.id
+  sensitive = true
+}
 
 
 resource "kubernetes_service_account" "kubernetes_service_account" {
