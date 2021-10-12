@@ -32,13 +32,14 @@ resource "tfe_workspace" "tfe_workspace" {
   organization   = var.tfe_organization_name
   execution_mode = "agent"
   agent_pool_id = data.tfe_agent_pool.agent_pool.id
-  auto_apply = var.tfe_workspace_auto_approve
-  terraform_version = var.tfe_workspace_terraform_version
+  auto_apply = local.tfe_workspace_auto_approve
+  terraform_version = local.tfe_workspace_terraform_version
+  structured_run_output_enabled = local.structured_run_output_enabled
 
-  vcs_repo {
-    identifier = github_repository.github_repository[each.key].full_name
-    oauth_token_id = var.oauth_token_id
-  }
+  # vcs_repo {
+  #   identifier = github_repository.github_repository[each.key].full_name
+  #   oauth_token_id = var.oauth_token_id
+  # }
   depends_on = [github_repository.github_repository]
 }
 
