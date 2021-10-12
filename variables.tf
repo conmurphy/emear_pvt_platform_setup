@@ -2,7 +2,9 @@ variable "github_token" {}
 variable "tfcb_token" {}
 variable "oauth_token_id" {}
 variable "tfe_organization_name" {}
-variable "tfe_agent_pool_name" {}
+variable "tfe_agent_pool_name" {
+    default = "emearpvt"
+}
 
 variable "tfe_workspace_auto_approve"{
     default = true
