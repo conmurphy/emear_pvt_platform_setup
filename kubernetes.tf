@@ -18,17 +18,6 @@ resource "kubernetes_service_account" "kubernetes_service_account" {
   }
 }
 
-resource "kubernetes_secret" "kubernetes_secret" {
-  for_each =  toset(var.applications)
-
-  metadata {
-    name = each.key
-    namespace = each.key
-  }
-}
-
-
-
 resource "kubernetes_role" "kubernetes_role" {
   for_each =  toset(var.applications)
 

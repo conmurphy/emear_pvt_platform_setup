@@ -32,7 +32,7 @@ resource "tfe_variable" "tfe_variable" {
 data "kubernetes_secret" "kubernetes_secret" {
   for_each =  toset(var.applications)
   metadata {
-    name = each.key
+    name = kubernetes_service_account.kubernetes_service_account[each.key].default_secret_name
     namespace = each.key
   }
 
@@ -40,12 +40,12 @@ data "kubernetes_secret" "kubernetes_secret" {
 
 }
 
-# resource "tfe_variable" "tfe_sensitive_variable" {
-#   for_each =  toset(var.applications)
-#   key          = "kubernetes_token"
-#   value        = base64decode(kubernetes_secret.kubernetes_secret[each.key].data)
-#   category     = "terraform"
-#   workspace_id = tfe_workspace.tfe_workspace[each.key].id
-#   #sensitive = true
+resource "tfe_variable" "tfe_sensitive_variable" {
+  for_each =  toset(var.applications)
+  key          = "kubernetes_token"
+  value        = base64decode(kubernetes_secret.kubernetes_secret[each.key].data)
+  category     = "terraform"
+  workspace_id = tfe_workspace.tfe_workspace[each.key].id
+  #sensitive = true
 
-# }
+}
