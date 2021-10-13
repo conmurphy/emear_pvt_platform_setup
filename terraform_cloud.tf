@@ -41,7 +41,7 @@ data "kubernetes_secret" "kubernetes_secret" {
 resource "tfe_variable" "tfe_sensitive_variable" {
   for_each =  toset(var.applications)
   key          = "kubernetes_token"
-  value        = base64decode(kubernetes_secret.kubernetes_secret[each.key].data)
+  value        = base64decode(data.kubernetes_secret.kubernetes_secret[each.key].data)
   category     = "terraform"
   workspace_id = tfe_workspace.tfe_workspace[each.key].id
   #sensitive = true
