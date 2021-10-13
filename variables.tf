@@ -9,8 +9,6 @@ variable "github_token" {}
 
 variable "dockerhub_token" {}
 variable "dockerhub_username" {}
-variable "tfc_workspace" {}
-
 
 
 variable "tfcb_token" {}
