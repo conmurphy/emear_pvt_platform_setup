@@ -36,8 +36,6 @@ data "kubernetes_secret" "kubernetes_secret" {
     namespace = each.key
   }
 
-  depends_on = [kubernetes_secret.kubernetes_secret]
-
 }
 
 resource "tfe_variable" "tfe_sensitive_variable" {
