@@ -1,3 +1,10 @@
+variable "applications" {
+  type = list(string)
+  default = ["healthcare-test"]
+
+}
+
+
 variable "github_token" {}
 variable "tfcb_token" {}
 variable "kubernetes_host" {}
