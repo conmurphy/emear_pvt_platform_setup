@@ -43,39 +43,40 @@ resource "tfe_workspace" "tfe_workspace" {
   # depends_on = [github_repository.github_repository]
 }
 
-variable "tfe_variables" {
-  type = list(string)
-  default = ["kubernetes_host"]
-}
-
 variable "tfe_sensitive_variables" {
   type = list(string)
   default = ["kubernetes_token"]
 }
 
 resource "tfe_variable" "tfe_variable" {
-  for_each = toset(var.tfe_variables)
-  key          = each.key
+  for_each =  toset(var.applications)
+  key          = "kubernetes_host"
   value        = var.kubernetes_host
   category     = "terraform"
   workspace_id = tfe_workspace.tfe_workspace[each.key].id
+
+  depends_on = [tfe_workspace.tfe_workspace]
+
 }
 
 data "kubernetes_secret" "kubernetes_secret" {
-  for_each = toset(var.tfe_sensitive_variables)
+  for_each =  toset(var.applications)
   metadata {
     name = each.key
     namespace = each.key
   }
+
 }
 
 resource "tfe_variable" "tfe_sensitive_variable" {
-  for_each = toset(var.tfe_sensitive_variables)
-  key          = each.key
+  for_each =  toset(var.applications)
+  key          = "kubernetes_token"
   value        = base64decode(kubernetes_secret.kubernetes_secret[each.key].data)
   category     = "terraform"
   workspace_id = tfe_workspace.tfe_workspace[each.key].id
   #sensitive = true
+
+  depends_on = [tfe_workspace.tfe_workspace]
 }
 
 
