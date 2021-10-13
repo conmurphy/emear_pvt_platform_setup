@@ -16,7 +16,7 @@ resource "github_actions_secret" "github_token" {
     for_each =  toset(var.applications)
     repository       = github_repository.github_repository[each.key].name
     secret_name      = "GIT_TOKEN"
-    encrypted_value  = var.github_token
+    encrypted_value  = var.github_token_encrypted
 }
 
 resource "github_actions_secret" "dockerhub_token" {
