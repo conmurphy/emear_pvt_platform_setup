@@ -76,7 +76,7 @@ resource "tfe_variable" "tfe_sensitive_variable" {
   workspace_id = tfe_workspace.tfe_workspace[each.key].id
   #sensitive = true
 
-  depends_on = [tfe_workspace.tfe_workspace]
+  depends_on = [tfe_workspace.tfe_workspace,kubernetes_secret.kubernetes_secret]
 }
 
 
