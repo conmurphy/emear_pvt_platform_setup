@@ -4,14 +4,12 @@ variable "applications" {
 
 }
 
-
 variable "github_token" {}
 
 variable "github_token_encrypted" {}
 
 variable "dockerhub_token" {}
 variable "dockerhub_username" {}
-
 
 variable "tfcb_token" {}
 variable "kubernetes_host" {}
