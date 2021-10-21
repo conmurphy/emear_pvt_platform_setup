@@ -21,7 +21,7 @@ resource "tfe_workspace" "tfe_workspace" {
 resource "tfe_variable" "tfe_variable" {
   for_each =  toset(var.applications)
   key          = "kubernetes_host"
-  value        = var.kubernetes_host
+  value        = yamldecode(base64decode(data.intersight_kubernetes_cluster.iks.results[0].kube_config)).clusters[0].cluster.server
   category     = "terraform"
   workspace_id = tfe_workspace.tfe_workspace[each.key].id
 
