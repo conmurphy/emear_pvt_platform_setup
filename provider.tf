@@ -43,14 +43,16 @@ provider "github" {
 #   kube_config = yamldecode(data.terraform_remote_state.iks.outputs.kube_config)
 # }
 
-data "intersight_kubernetes_cluster" "iks" {
-  name = "emear-pvt-iks-predeployed"
-}
+
 
 provider "intersight" {
   apikey    = var.intersight_api_key
   secretkey = var.intersight_secret_key
   endpoint  = var.intersight_endpoint
+}
+
+data "intersight_kubernetes_cluster" "iks" {
+  name = "emear-pvt-iks-predeployed"
 }
 
 provider "kubernetes" {
