@@ -4,6 +4,26 @@ variable "applications" {
 
 }
 
+variable "iks_cluster_name" {
+  type        = string
+  description = "Name of IKS cluster"
+}
+
+variable "intersight_api_key" {
+  type        = string
+  description = "API Key"
+}
+variable "intersight_secret_key" {
+  type        = string
+  description = "Secret Key or file location"
+}
+
+variable "intersight_endpoint" {
+  type        = string
+  description = "API Endpoint URL"
+  default     = "https://www.intersight.com"
+}
+
 variable "github_token" {}
 
 variable "github_token_encrypted" {}
@@ -12,8 +32,7 @@ variable "dockerhub_token" {}
 variable "dockerhub_username" {}
 
 variable "tfcb_token" {}
-variable "kubernetes_host" {}
-variable "kubernetes_token" {}
+
 variable "tfe_organization_name" {}
 variable "tfe_agent_pool_name" {
     default = "emearpvt"
