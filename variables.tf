@@ -30,7 +30,7 @@ variable "tfcb_token" {}
 
 variable "tfe_organization_name" {}
 variable "tfe_agent_pool_name" {
-    default = "emearpvt"
+  default = "rmlabagents"
 }
 
 locals {
