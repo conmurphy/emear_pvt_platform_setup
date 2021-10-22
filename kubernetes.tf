@@ -14,7 +14,7 @@ resource "kubernetes_service_account" "kubernetes_service_account" {
     namespace = each.key
   }
 
-  depends_on[kubernetes_namespace.kubernetes_namespace]
+  depends_on = [kubernetes_namespace.kubernetes_namespace]
   
 }
 
@@ -32,7 +32,7 @@ resource "kubernetes_role" "kubernetes_role" {
     verbs          = ["get","list","watch","create","update","patch","delete"]
   }
 
-  depends_on[kubernetes_namespace.kubernetes_namespace]
+  depends_on = [kubernetes_namespace.kubernetes_namespace]
   
 }
 
