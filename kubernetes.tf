@@ -13,6 +13,8 @@ resource "kubernetes_service_account" "kubernetes_service_account" {
     name = each.key
     namespace = each.key
   }
+
+  depends_on[kubernetes_namespace.kubernetes_namespace]
   
 }
 
@@ -29,6 +31,8 @@ resource "kubernetes_role" "kubernetes_role" {
     resources      = ["namespaces","pods","persistentvolumes","persistentvolumeclaims","configmaps","secrets","replicasets","deployments","daemonsets","statefulsets", "services", "ingresses"]
     verbs          = ["get","list","watch","create","update","patch","delete"]
   }
+
+  depends_on[kubernetes_namespace.kubernetes_namespace]
   
 }
 
@@ -50,5 +54,5 @@ resource "kubernetes_role_binding" "role_binding" {
     namespace = each.key
     api_group = ""
   }
-   depends_on = [kubernetes_role.kubernetes_role]
+   depends_on = [kubernetes_namespace.kubernetes_namespace,kubernetes_role.kubernetes_role]
 }
