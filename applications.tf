@@ -1,6 +1,5 @@
 variable "applications" {
   type = list(string)
-  //default = ["healthcare-frontend","healthcare-predictor","healthcare-refund","healthcare-search"]
-  default = [""]
+  default = ["healthcare-frontend","healthcare-predictor","healthcare-refund","healthcare-search"]
 
 }
