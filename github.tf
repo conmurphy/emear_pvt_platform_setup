@@ -58,7 +58,7 @@ resource "github_actions_secret" "tfc_workspace" {
     for_each =  toset(var.applications) 
     repository       = github_repository.github_repository[each.key].name
     secret_name      = "TFC_WORKSPACE"
-    plaintext_value  = each.key
+    plaintext_value  = "PVT_04_APP_${each.key}"
 }
 
 
