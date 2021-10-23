@@ -61,4 +61,9 @@ resource "github_actions_secret" "tfc_workspace" {
     plaintext_value  = "PVT_04_APP_${each.key}"
 }
 
-
+resource "github_actions_secret" "redis_access_key" {
+    for_each =  toset(var.applications)
+    repository       = github_repository.github_repository[each.key].name
+    secret_name      = "REDIS_ACCESS_KEY"
+    encrypted_value  = var.redis_access_key
+}

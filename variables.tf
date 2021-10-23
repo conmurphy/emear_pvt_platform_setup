@@ -23,6 +23,8 @@ variable "github_token" {}
 
 variable "github_token_encrypted" {}
 
+variable "redis_access_key" {}
+
 variable "dockerhub_token" {}
 variable "dockerhub_username" {}
 
