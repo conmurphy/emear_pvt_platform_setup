@@ -13,11 +13,11 @@ resource "github_repository" "github_repository" {
 }
 
 # this branch is used by the github actions workflow to upload the helm packages
-resource "github_branch" "github_branch" {
-    for_each = toset(var.applications)
-    repository = github_repository.github_repository[each.key].name
-    branch     = "gh-pages"
-}
+# resource "github_branch" "github_branch" {
+#     for_each = toset(var.applications)
+#     repository = github_repository.github_repository[each.key].name
+#     branch     = "gh-pages"
+# }
 
 resource "github_actions_secret" "github_token" {
     for_each =  toset(var.applications)
