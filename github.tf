@@ -23,14 +23,14 @@ resource "github_actions_secret" "github_token" {
     for_each =  toset(var.applications)
     repository       = github_repository.github_repository[each.key].name
     secret_name      = "GIT_TOKEN"
-    encrypted_value  = var.github_token_encrypted
+    plaintext_value  = var.github_token_encrypted
 }
 
 resource "github_actions_secret" "dockerhub_token" {
     for_each =  toset(var.applications)
     repository       = github_repository.github_repository[each.key].name
     secret_name      = "DOCKERHUB_TOKEN"
-    encrypted_value  = var.dockerhub_token
+    plaintext_value  = var.dockerhub_token
 }
 
 resource "github_actions_secret" "dockerhub_username" {
@@ -65,5 +65,5 @@ resource "github_actions_secret" "redis_access_key" {
     for_each =  toset(var.applications)
     repository       = github_repository.github_repository[each.key].name
     secret_name      = "REDIS_ACCESS_KEY"
-    encrypted_value  = var.redis_access_key
+    plaintext_value  = var.redis_access_key
 }
