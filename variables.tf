@@ -33,8 +33,6 @@ variable "tfcb_token" {}
 variable "tfe_organization_name" {}
 variable "tfe_agent_pool_name" {}
 
-variable "intersight_kubernetes_cluster_name" {}
-
 locals {
     github_visibility = "public"
     github_template_owner = "conmurphy"
