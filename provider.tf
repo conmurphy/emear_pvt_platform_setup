@@ -52,10 +52,7 @@ provider "intersight" {
 }
 
 data "intersight_kubernetes_cluster" "iks" {
-  #name = "emear-pvt-iks-predeployed"
-  #name = var.iks_cluster_name
-  name = "iks-networking-example-cluster"
-
+  name = var.iks_cluster_name
 }
 
 provider "kubernetes" {
